@@ -1,12 +1,13 @@
 import { Router } from 'express';
 import { createTranscription, listTranscriptions } from '../controllers/transcription.controller';
+import { asyncHandler } from '../utils/asyncHandler';
 
 const router = Router();
 
 // POST /transcription
-router.post('/', createTranscription);
+router.post('/', asyncHandler(createTranscription));
 
 // GET /transcription
-router.get('/', listTranscriptions);
+router.get('/', asyncHandler(listTranscriptions));
 
 export default router;
