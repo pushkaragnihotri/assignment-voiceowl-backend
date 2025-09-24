@@ -1,9 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
 import { ObjectSchema } from 'joi';
 
-export function validate(schema: ObjectSchema) {
+export function validate(schema: ObjectSchema, property: 'body' | 'query' = 'body') {
   return (req: Request, _res: Response, next: NextFunction) => {
-    const { error } = schema.validate(req.body, { abortEarly: false });
+    const { error } = schema.validate(req[property], { abortEarly: false });
 
     if (error) {
       return next({

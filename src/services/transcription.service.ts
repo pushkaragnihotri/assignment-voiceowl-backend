@@ -65,6 +65,19 @@ export async function createAndTranscribe(audioUrl: string): Promise<ITranscript
 
 
 /** Fetch all transcriptions */
-export async function getAllTranscriptions(): Promise<ITranscription[]> {
-  return TranscriptionModel.find().sort({ createdAt: -1 }).exec();
+export async function getAllTranscriptions(
+  filters: { status?: string },
+  options: { limit?: number; skip?: number }
+): Promise<ITranscription[]> {
+  const query: any = {};
+
+  if (filters.status) {
+    query.status = filters.status;
+  }
+
+  return TranscriptionModel.find(query)
+    .sort({ createdAt: -1 })
+    .skip(options.skip ?? 0)
+    .limit(options.limit ?? 50) // default max 50
+    .exec();
 }

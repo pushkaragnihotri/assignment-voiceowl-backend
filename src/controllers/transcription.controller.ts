@@ -15,8 +15,16 @@ export const createTranscription = async (req: Request, res: Response) => {
   });
 };
 
-export const listTranscriptions = async (_req: Request, res: Response) => {
-  const records = await getAllTranscriptions();
+export const listTranscriptions = async (req: Request, res: Response) => {
+  const { status, limit, skip } = req.query;
+
+  const records = await getAllTranscriptions(
+    { status: status as string | undefined },
+    {
+      limit: limit ? parseInt(limit as string, 10) : undefined,
+      skip: skip ? parseInt(skip as string, 10) : undefined,
+    }
+  );
 
   return res.json(
     records.map((r) => ({

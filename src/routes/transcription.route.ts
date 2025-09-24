@@ -3,6 +3,7 @@ import { createTranscription, listTranscriptions } from '../controllers/transcri
 import { asyncHandler } from '../utils/asyncHandler';
 import { validate } from '../middleware/validate';
 import { createTranscriptionSchema } from '../validation/transcription.schema';
+import { listTranscriptionsSchema } from '../validation/transcription.query.schema';
 
 const router = Router();
 
@@ -10,6 +11,6 @@ const router = Router();
 router.post('/', validate(createTranscriptionSchema), asyncHandler(createTranscription));
 
 // GET /transcription
-router.get('/', asyncHandler(listTranscriptions));
+router.get('/', validate(listTranscriptionsSchema, 'query'), asyncHandler(listTranscriptions));
 
 export default router;
