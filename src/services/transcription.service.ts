@@ -62,3 +62,9 @@ export async function createAndTranscribe(audioUrl: string): Promise<ITranscript
 
   return doc;
 }
+
+
+/** Fetch all transcriptions */
+export async function getAllTranscriptions(): Promise<ITranscription[]> {
+  return TranscriptionModel.find().sort({ createdAt: -1 }).exec();
+}

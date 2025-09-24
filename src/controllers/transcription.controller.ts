@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { createAndTranscribe } from '../services/transcription.service';
+import { createAndTranscribe, getAllTranscriptions } from '../services/transcription.service';
 
 export const createTranscription = async (req: Request, res: Response) => {
   const { audioUrl } = req.body ?? {};
@@ -20,5 +20,25 @@ export const createTranscription = async (req: Request, res: Response) => {
   } catch (err) {
     console.error('Transcription failed:', err);
     return res.status(500).json({ error: 'Failed to process transcription' });
+  }
+};
+
+
+export const listTranscriptions = async (_req: Request, res: Response) => {
+  try {
+    const records = await getAllTranscriptions();
+    return res.json(
+      records.map((r) => ({
+        _id: r._id,
+        audioUrl: r.audioUrl,
+        transcription: r.transcription,
+        status: r.status,
+        createdAt: r.createdAt,
+        updatedAt: r.updatedAt
+      }))
+    );
+  } catch (err) {
+    console.error('Failed to fetch transcriptions:', err);
+    return res.status(500).json({ error: 'Failed to fetch transcriptions' });
   }
 };
