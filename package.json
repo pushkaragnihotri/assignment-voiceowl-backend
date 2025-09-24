@@ -1,0 +1,32 @@
+{
+  "name": "assignment-voiceowl-backend",
+  "version": "1.0.0",
+  "description": "API service that accepts an audio file URL, mocks transcription, and stores the result in MongoDB",
+  "main": "index.js",
+  "scripts": {
+    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github-personal.com:pushkaragnihotri/assignment-voiceowl-backend.git"
+  },
+  "keywords": [],
+  "author": "Pushkar Sharma",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "dotenv": "17.2.2",
+    "express": "5.1.0",
+    "mongodb-memory-server": "10.2.1",
+    "mongoose": "8.18.2"
+  },
+  "devDependencies": {
+    "@types/express": "5.0.3",
+    "@types/mongodb": "4.0.6",
+    "@types/node": "24.5.2",
+    "ts-node-dev": "2.0.0",
+    "typescript": "5.9.2"
+  }
+}
