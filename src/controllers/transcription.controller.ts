@@ -2,12 +2,7 @@ import { Request, Response } from 'express';
 import { createAndTranscribe, getAllTranscriptions } from '../services/transcription.service';
 
 export const createTranscription = async (req: Request, res: Response) => {
-  const { audioUrl } = req.body ?? {};
-
-  if (!audioUrl || typeof audioUrl !== 'string') {
-    res.status(400);
-    throw new Error('audioUrl (string) is required');
-  }
+  const { audioUrl } = req.body;
 
   const record = await createAndTranscribe(audioUrl);
 
